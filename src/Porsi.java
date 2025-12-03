@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Porsi {
-   ArrayList<Bakso> porsi;
+   ArrayList<Menu> porsi;
    int jumlahPorsi;
 
-   Porsi(Bakso bakso){
+   Porsi(Menu bakso){
        this.porsi.add(bakso);
    }
 }
