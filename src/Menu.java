@@ -9,6 +9,11 @@ public class Menu {
         this.stock = stock;
     }
 
+    Menu(String nama, int harga){
+        this.nama = nama;
+        this.harga = harga;
+    }
+
     public String getNama() {
         return nama;
     }
