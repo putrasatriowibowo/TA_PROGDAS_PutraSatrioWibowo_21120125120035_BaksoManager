@@ -11,10 +11,9 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.Collections;
 
-// --- KELAS UTAMA APLIKASI ---
 public class BaksoManager extends JFrame {
 
-    // --- Data Menu ---
+    // Menu =============================================================
     private static final Map<String, Integer> MENU_DATA = new LinkedHashMap<>();
     static {
         MENU_DATA.put("Bakso Kecil", 1000);
@@ -28,7 +27,6 @@ public class BaksoManager extends JFrame {
         MENU_DATA.put("Mi", 1000);
     }
 
-    // --- Komponen Utama ---
     private JPanel mainPanel;
     private JPanel menuPanel;
     private JPanel porsiPanelContainer;
@@ -38,7 +36,7 @@ public class BaksoManager extends JFrame {
     private JPanel antrianPanelContainer;
     private JPanel antrianPanel;
 
-    // --- State Management ---
+    // State =========================================================================
     private Map<String, JButton> menuButtons = new LinkedHashMap<>();
     private Map<String, PorsiItemPanel> currentPorsiItems = new LinkedHashMap<>();
     private List<PesananItemPanel> currentPesananItems = new ArrayList<>();
@@ -50,29 +48,24 @@ public class BaksoManager extends JFrame {
     private List<Integer> reusableOrderIds = new ArrayList<>();
 
     public BaksoManager() {
-        // 1. Setup Frame
         setTitle("Bakso Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Hapus pack() dan pastikan setExtendedState dipanggil setelah semua komponen ditambahkan
         setLayout(new BorderLayout());
 
-        // 2. Setup Main Panel (Menggunakan GridBagLayout untuk kontrol lebar dan tinggi)
         mainPanel = new JPanel(new GridBagLayout());
         add(mainPanel, BorderLayout.CENTER);
 
-        // 3. Setup Sub-Panels
         setupMenuPanel();
         setupPorsiPanel();
         setupPesananPanel();
         setupAntrianPanel();
 
-        // --- Mengatur Bobot Kolom (weightx) dan Tinggi Penuh (weighty = 1.0) ---
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridy = 0;
-        gbc.weighty = 1.0; // Mengambil seluruh tinggi vertikal
+        gbc.weighty = 1.0;
 
-        // Kolom 0: Menu (Paling kecil, 1% dari lebar)
+        // Kolom 0: Menu
         gbc.gridx = 0;
         gbc.weightx = 0.01;
         mainPanel.add(menuPanel, gbc);
@@ -82,7 +75,7 @@ public class BaksoManager extends JFrame {
         gbc.weightx = 0.001;
         mainPanel.add(new JSeparator(SwingConstants.VERTICAL), gbc);
 
-        // Kolom 2: Porsi (35% dari lebar)
+        // Kolom 2: Porsi
         gbc.gridx = 2;
         gbc.weightx = 0.35;
         mainPanel.add(porsiPanelContainer, gbc);
@@ -92,7 +85,7 @@ public class BaksoManager extends JFrame {
         gbc.weightx = 0.001;
         mainPanel.add(new JSeparator(SwingConstants.VERTICAL), gbc);
 
-        // Kolom 4: Pesanan (35% dari lebar)
+        // Kolom 4: Pesanan
         gbc.gridx = 4;
         gbc.weightx = 0.35;
         mainPanel.add(pesananPanelContainer, gbc);
@@ -102,20 +95,14 @@ public class BaksoManager extends JFrame {
         gbc.weightx = 0.001;
         mainPanel.add(new JSeparator(SwingConstants.VERTICAL), gbc);
 
-        // Kolom 6: Antrian (40% dari lebar)
+        // Kolom 6: Antrian
         gbc.gridx = 6;
         gbc.weightx = 0.4;
         mainPanel.add(antrianPanelContainer, gbc);
 
-
-        // --- Perbaikan Fullscreen Otomatis ---
-        // Atur ukuran ke fullscreen
         setExtendedState(Frame.MAXIMIZED_BOTH);
-        // Agar perubahan diperhitungkan.
         setVisible(true);
     }
-
-    // --- UTILITY METHODS ---
 
     private JPanel createPanelWithTitle(String title, Color bgColor) {
         JPanel container = new JPanel();
@@ -135,10 +122,9 @@ public class BaksoManager extends JFrame {
         return container;
     }
 
-    // --- SETUP PANEL ---
-
+    // Setup Panel ========================================================================
     private void setupMenuPanel() {
-        menuPanel = createPanelWithTitle("MENU", new Color(240, 240, 240));
+        menuPanel = createPanelWithTitle("MENU", new Color(255, 255, 255));
 
         JPanel menuContentPanel = new JPanel();
         menuContentPanel.setLayout(new BoxLayout(menuContentPanel, BoxLayout.Y_AXIS));
@@ -160,7 +146,7 @@ public class BaksoManager extends JFrame {
             menuButton.add(namaLabel, BorderLayout.WEST);
 
             JLabel hargaLabel = new JLabel(String.format("Rp %,d", hargaMenu));
-            hargaLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
+            hargaLabel.setFont(new Font("Times New Roman", Font.BOLD, 12));
             hargaLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
             hargaLabel.setPreferredSize(new Dimension(90, 20));
             menuButton.add(hargaLabel, BorderLayout.EAST);
@@ -181,7 +167,7 @@ public class BaksoManager extends JFrame {
     }
 
     private void setupPorsiPanel() {
-        porsiPanelContainer = createPanelWithTitle("PORSI", new Color(200, 220, 255));
+        porsiPanelContainer = createPanelWithTitle("PORSI", new Color(255, 255, 255));
 
         porsiPanel = new JPanel();
         porsiPanel.setLayout(new BoxLayout(porsiPanel, BoxLayout.Y_AXIS));
@@ -204,7 +190,7 @@ public class BaksoManager extends JFrame {
     }
 
     private void setupPesananPanel() {
-        pesananPanelContainer = createPanelWithTitle("PESANAN", new Color(255, 200, 200));
+        pesananPanelContainer = createPanelWithTitle("PESANAN", new Color(255, 255, 255));
 
         pesananPanel = new JPanel();
         pesananPanel.setLayout(new BoxLayout(pesananPanel, BoxLayout.Y_AXIS));
@@ -227,7 +213,7 @@ public class BaksoManager extends JFrame {
     }
 
     private void setupAntrianPanel() {
-        antrianPanelContainer = createPanelWithTitle("ANTRIAN", new Color(200, 255, 200));
+        antrianPanelContainer = createPanelWithTitle("ANTRIAN", new Color(255, 255, 255));
 
         antrianPanel = new JPanel();
         antrianPanel.setLayout(new BoxLayout(antrianPanel, BoxLayout.Y_AXIS));
@@ -249,8 +235,7 @@ public class BaksoManager extends JFrame {
         antrianPanelContainer.add(antrianPanelButton);
     }
 
-    // --- LOGIC HANDLERS ---
-
+    // Event Handler ===================================================================
     private void handleMenuButtonClick(String namaMenu, int hargaMenu, JButton sourceButton) {
         if (currentPorsiItems.containsKey(namaMenu)) {
             return;
@@ -423,7 +408,6 @@ public class BaksoManager extends JFrame {
     }
 }
 
-// --- DATA MODEL UNTUK ITEM PORSI ---
 class PorsiItem {
     String namaMenu;
     int hargaSatuan;
@@ -441,7 +425,6 @@ class PorsiItem {
     }
 }
 
-// --- DATA MODEL UNTUK ITEM PESANAN YANG AKAN DIKIRIM KE ANTRIAN ---
 class PesananItemData {
     int orderId; // Nomor Porsi
     List<PorsiItem> items;
@@ -457,7 +440,6 @@ class PesananItemData {
 }
 
 
-// --- PANEL PORSI ITEM (Dynamic Item di Porsi Panel) ---
 class PorsiItemPanel extends JPanel {
     private final BaksoManager parentFrame;
     PorsiItem itemData;
@@ -501,7 +483,7 @@ class PorsiItemPanel extends JPanel {
         add(controlPanel);
 
         totalHargaLabel = new JLabel(String.format("Rp %,d", itemData.getTotalHarga()));
-        totalHargaLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        totalHargaLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
         totalHargaLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         totalHargaLabel.setPreferredSize(new Dimension(100, 20));
         add(totalHargaLabel);
@@ -530,7 +512,6 @@ class PorsiItemPanel extends JPanel {
     }
 }
 
-// --- PANEL PESANAN ITEM (Dynamic Item di Pesanan Panel) ---
 class PesananItemPanel extends JPanel {
     private final BaksoManager parentFrame;
     int orderId;
@@ -553,7 +534,7 @@ class PesananItemPanel extends JPanel {
         detailPanel.setOpaque(false);
 
         JLabel header = new JLabel("Porsi ke-" + orderId + ": (Total: " + items.size() + " item)");
-        header.setFont(new Font("SansSerif", Font.BOLD, 14));
+        header.setFont(new Font("Times New Roman", Font.BOLD, 14));
         detailPanel.add(header);
 
         for (PorsiItem item : items) {
@@ -580,7 +561,7 @@ class PesananItemPanel extends JPanel {
         add(controlPanel);
 
         JLabel totalLabel = new JLabel(String.format("Rp %,d", totalOrderPrice));
-        totalLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        totalLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
         totalLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         totalLabel.setPreferredSize(new Dimension(100, 20));
         add(totalLabel);
@@ -613,14 +594,14 @@ class AntrianItemPanel extends JPanel {
         detailPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         JLabel header = new JLabel("Pesanan ke-" + antrianId + ":");
-        header.setFont(new Font("SansSerif", Font.BOLD, 16));
+        header.setFont(new Font("Times New Roman", Font.BOLD, 16));
         detailPanel.add(header);
         detailPanel.add(Box.createVerticalStrut(5));
 
         for (PesananItemData pesananData : pesananDataList) {
 
             JLabel porsiHeader = new JLabel("  Porsi ke-" + pesananData.orderId + ":");
-            porsiHeader.setFont(new Font("SansSerif", Font.ITALIC, 14));
+            porsiHeader.setFont(new Font("Times New Roman", Font.ITALIC, 14));
             detailPanel.add(porsiHeader);
 
             for (PorsiItem item : pesananData.items) {
@@ -647,7 +628,7 @@ class AntrianItemPanel extends JPanel {
         add(controlPanel);
 
         JLabel totalLabel = new JLabel(String.format("Rp %,d", totalAntrianPrice));
-        totalLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        totalLabel.setFont(new Font("Times New Roman", Font.BOLD, 14));
         totalLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         totalLabel.setPreferredSize(new Dimension(100, 20));
         add(totalLabel);
